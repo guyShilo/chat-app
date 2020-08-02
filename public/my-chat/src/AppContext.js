@@ -8,13 +8,13 @@ const AppProvider = ({ children }) => {
     room: localStorage.getItem("room"),
     id: localStorage.getItem("id"),
   });
-  const currentUsers = [];
+  const [currentInChat, setCurrentInChat] = useState([]);
   const [userLoggedIn, setUserLoggedIn] = useState(false);
   const [currentRoom, setCurrentRoom] = useState("");
   const [currentCountry, setCurrentCountry] = useState("");
   const [countries, setCountires] = React.useState([]);
   const [currentMessages, setCurrentMessages] = useState([]);
-
+  const url = "/";
   const handleRoomChange = (event) => {
     console.log(event.target.value);
     setCurrentCountry(Number(event.target.value) || "");
@@ -48,7 +48,6 @@ const AppProvider = ({ children }) => {
         setCurrentUser,
         currentRoom,
         setCurrentRoom,
-        currentUsers,
         setUserLoggedIn,
         userLoggedIn,
         currentCountry,
@@ -58,6 +57,9 @@ const AppProvider = ({ children }) => {
         handleRoomChange,
         currentMessages,
         setCurrentMessages,
+        currentInChat,
+        setCurrentInChat,
+        url,
       }}
     >
       {children}

@@ -74,7 +74,7 @@ export const ChatList = () => {
 
   let helloMessage = [
     {
-      id: 1,
+      id: "Chat Bot",
       senderName: "Chat Bot",
       message: `Welcome ${context.currentUser || "Guest"}!\n You are inroom ${
         context.currentRoom
@@ -86,7 +86,9 @@ export const ChatList = () => {
   //     setMessages({ ...messages, curr_user: user });
   //   };
   let message;
-
+  const filteredTry = messages.filter((msg) =>
+    msg.senderName === context.currentUser ? (msg.id = 0) : (msg.id = 1)
+  );
   const onMessageSubmit = (e) => {
     const input = message;
     e.preventDefault();
@@ -133,28 +135,30 @@ export const ChatList = () => {
 
   const postData = async ({ id, senderName, room, message }) => {
     //   id, senderName, room, message
-    setLoading(true);
     const request = axios.post(
-      `/data?id=${id}&message=${message}&senderName=${senderName}&room=${room}`
+      `${context.url}data?id=${id}&message=${message}&senderName=${senderName}&room=${room}`
     );
     const response = await request;
-    // setMessages([...messages, {message: response.data}]);
+    // setMessages([...messages, ...response.data]);
     await getDataCallBack();
   };
 
   const getDataCallBack = useCallback(async () => {
     console.log("fetching");
     return await axios(
-      `/data?room=${context.currentRoom}&senderName=${context.currentUser}`
+      `${context.url}data?room=${context.currentRoom}&senderName=${context.currentUser}`
     )
       .then((res) => {
         if (!res.data.hasValue) {
-          setMessages([...helloMessage, ...messages]);
-          //   setLoading(true)
+          //   setMessages([...helloMessage, ...messages]);
+          setMessages([...messages]);
 
+          //   setLoading(true)
+          console.log(context.currentUser);
           console.log(res.data.hasValue);
         } else {
           //   setMessages(helloMessage.concat(res.data.value));
+          setLoading(true);
           return res.data;
         }
       })
@@ -163,34 +167,27 @@ export const ChatList = () => {
 
   //   getDataCallBack, loading
   useEffect(() => {
-    getDataCallBack().then((data) => {
-      console.log(data);
+    getDataCallBack().then(async (data) => {
       if (!data) {
-        console.log("no data");
+        setLoading(!loading);
+        return;
       } else {
-        if (data.value.length !== 0) {
-          console.log("data is pop" + data.value);
-          helloMessage = {
-            ...helloMessage[0],
-            id: helloMessage.id === 1 ? 0 : 1,
-          };
-          setMessages([helloMessage, ...data.value]);
-          setLoading(true);
+        if (data.value.length) {
+          console.log(filteredTry);
+          setMessages(data.value);
         }
       }
+      return await delay(7000).then(() => setLoading(!loading));
     });
-    return () => delay(15000).then(() => setLoading(false));
-  }, [loading]);
+
+    // return () => delay(7000).then(() => setLoading(true));
+  }, [context.currentRoom, loading, filteredTry]);
 
   return context.userLoggedIn ? (
     <div className="container">
       {/* <Typography variant="h3" className="mt-2 p-1 text-center text-light">
         Welcome to my Chat App
       </Typography> */}
-
-      {/* {loading ? console.log() : ( */}
-      {console.log(messages, context.currentMessages, context)}
-
       <Paper
         className="chatfeed-wrapper shadow-lg"
         style={{
@@ -200,11 +197,16 @@ export const ChatList = () => {
           padding: "1rem",
         }}
       >
+        {/* messages.filter(
+            (message) => message.room === context.currentRoom
+          ) */}
         <ChatFeed
           chatBubble={messages.useCustomBubble && customBubble}
           maxHeight={250}
-          messages={messages.filter(
-            (message) => message.room === context.currentRoom
+          messages={helloMessage.concat(
+            messages.filter((msg) =>
+              msg.room === context.currentRoom ? msg : helloMessage
+            )
           )} // Boolean: list of message objects
           showSenderName
         />
@@ -219,7 +221,7 @@ export const ChatList = () => {
               style={inputStyle}
             />
           </form>
-
+          <code>{`${loading ? "loading..." : context.currentUser}`}</code>
           <div
             style={{
               display: "flex",
@@ -241,6 +243,7 @@ export const ChatList = () => {
           </div>
         </Card>
       </Paper>
+
       {/* )} */}
       {/* <h2 className="text-center">And we have Bubble Groups!</h2>
    <BubbleGroup

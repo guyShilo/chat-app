@@ -46,7 +46,7 @@ const Autocomplete = ({ suggestions, handleClose }) => {
   const onClick = (e) => {
     // context.handleRoomChange(e);
     alert(`you have chosen ${e.currentTarget.innerText}`); // Update the user input and reset the rest of the state
-    // context.setCurrentRoom(e.currentTarget.innerText);
+    context.setCurrentRoom(e.currentTarget.innerText);
     setAutoCompleteState({
       activeSuggestion: 0,
       filteredSuggestions: [],

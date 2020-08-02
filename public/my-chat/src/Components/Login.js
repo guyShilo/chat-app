@@ -54,9 +54,9 @@ export const Login = () => {
 
   const handleClose = async () => {
     const generateID = parseInt(Math.random() * 100);
-
+    console.log(context.url);
     const request = axios.post(
-      `/data/joinRoom?id=${generateID}&senderName=${user}&room=${context.currentRoom}`
+      `${context.url}data/joinRoom?id=${generateID}&senderName=${user}&room=${context.currentRoom}`
     );
 
     const response = await request;
@@ -68,7 +68,7 @@ export const Login = () => {
       //   localStorage.setItem("id", response.data.id);
       //   localStorage.setItem("loggedIn", "true");
       context.setCurrentMessages(response.data);
-      context.currentUsers.push(response.data);
+      context.setCurrentInChat([...context.currentInChat, response.data]);
       //   context.setCurrentRoom(room);
       context.setUserLoggedIn(true);
       setOpen(false);
