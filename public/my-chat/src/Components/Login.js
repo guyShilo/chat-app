@@ -56,7 +56,7 @@ export const Login = () => {
     const generateID = parseInt(Math.random() * 100);
 
     const request = axios.post(
-      `http://localhost:5000/data/joinRoom?id=${generateID}&senderName=${user}&room=${context.currentRoom}`
+      `/data/joinRoom?id=${generateID}&senderName=${user}&room=${context.currentRoom}`
     );
 
     const response = await request;

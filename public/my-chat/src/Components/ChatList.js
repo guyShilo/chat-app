@@ -135,7 +135,7 @@ export const ChatList = () => {
     //   id, senderName, room, message
     setLoading(true);
     const request = axios.post(
-      `http://localhost:5000/data?id=${id}&message=${message}&senderName=${senderName}&room=${room}`
+      `/data?id=${id}&message=${message}&senderName=${senderName}&room=${room}`
     );
     const response = await request;
     // setMessages([...messages, {message: response.data}]);
@@ -145,7 +145,7 @@ export const ChatList = () => {
   const getDataCallBack = useCallback(async () => {
     console.log("fetching");
     return await axios(
-      `http://localhost:5000/data?room=${context.currentRoom}&senderName=${context.currentUser}`
+      `/data?room=${context.currentRoom}&senderName=${context.currentUser}`
     )
       .then((res) => {
         if (!res.data.hasValue) {
