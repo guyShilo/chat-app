@@ -76,8 +76,8 @@ export const ChatList = () => {
     {
       id: 1,
       senderName: "Chat Bot",
-      message: `Welcome to room ${context.currentRoom} ${
-        context.currentUser || "Guest"
+      message: `Welcome ${context.currentUser || "Guest"}!\n You are inroom ${
+        context.currentRoom
       }`,
       room: context.currentRoom,
     },
@@ -159,7 +159,7 @@ export const ChatList = () => {
         }
       })
       .catch((err) => err);
-  }, [loading, postData]);
+  }, [context.currentRoom, loading, postData]);
 
   //   getDataCallBack, loading
   useEffect(() => {
@@ -174,13 +174,12 @@ export const ChatList = () => {
             ...helloMessage[0],
             id: helloMessage.id === 1 ? 0 : 1,
           };
-          console.log(helloMessage);
           setMessages([helloMessage, ...data.value]);
           setLoading(true);
         }
       }
     });
-    return () => delay(25000).then(() => setLoading(false));
+    return () => delay(15000).then(() => setLoading(false));
   }, [loading]);
 
   return context.userLoggedIn ? (
