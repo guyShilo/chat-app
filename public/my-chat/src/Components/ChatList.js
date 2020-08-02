@@ -64,11 +64,7 @@ export const ChatList = () => {
   const context = useContext(ChatAppContext);
   const currentUsers = context.currentUsers;
   const history = useHistory();
-  //   const [messages, setMessages] = useState({
-  //     messages: [],
-  //     useCustomBubble: false,
-  //     currentUsers,
-  //   });
+
   const [loading, setLoading] = useState(false);
   const [messages, setMessages] = useState([]);
 
@@ -82,9 +78,7 @@ export const ChatList = () => {
       room: context.currentRoom,
     },
   ];
-  //   const onPress = (user) => {
-  //     setMessages({ ...messages, curr_user: user });
-  //   };
+
   let message;
   const filteredTry = messages.filter((msg) =>
     msg.senderName === context.currentUser ? (msg.id = 0) : (msg.id = 1)
@@ -113,26 +107,6 @@ export const ChatList = () => {
 
   const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
-  //   const getData = async (retries = 0) => {
-  //     console.log(context.currentUsers);
-  //     return await axios(`http://localhost:5000/data?room=${context.currentRoom}`)
-  //       .then((res) => {
-  //         console.log(res.data);
-  //         if (res.data.hasValue === true) {
-  //           setMessages(helloMessage.concat(res.data.value));
-  //           setLoading(false);
-  //         } else {
-  //           console.log("not setting value");
-  //         }
-  //         // if (res.data.hasValue) {
-  //         //   return Promise.resolve(res.data); // success!
-  //         // } else if (retries >= 15) {
-  //         //   return Promise.reject(res); // failure
-  //         // }
-  //       })
-  //       .catch((err) => err);
-  //   };
-
   const postData = async ({ id, senderName, room, message }) => {
     //   id, senderName, room, message
     const request = axios.post(
@@ -150,14 +124,8 @@ export const ChatList = () => {
     )
       .then((res) => {
         if (!res.data.hasValue) {
-          //   setMessages([...helloMessage, ...messages]);
           setMessages([...messages]);
-
-          //   setLoading(true)
-          console.log(context.currentUser);
-          console.log(res.data.hasValue);
         } else {
-          //   setMessages(helloMessage.concat(res.data.value));
           setLoading(true);
           return res.data;
         }
@@ -165,7 +133,6 @@ export const ChatList = () => {
       .catch((err) => err);
   }, [context.currentRoom, loading, postData]);
 
-  //   getDataCallBack, loading
   useEffect(() => {
     getDataCallBack().then(async (data) => {
       if (!data) {
@@ -179,15 +146,10 @@ export const ChatList = () => {
       }
       return await delay(7000).then(() => setLoading(!loading));
     });
-
-    // return () => delay(7000).then(() => setLoading(true));
   }, [context.currentRoom, loading, filteredTry]);
 
   return context.userLoggedIn ? (
     <div className="container">
-      {/* <Typography variant="h3" className="mt-2 p-1 text-center text-light">
-        Welcome to my Chat App
-      </Typography> */}
       <Paper
         className="chatfeed-wrapper shadow-lg"
         style={{
@@ -197,9 +159,6 @@ export const ChatList = () => {
           padding: "1rem",
         }}
       >
-        {/* messages.filter(
-            (message) => message.room === context.currentRoom
-          ) */}
         <ChatFeed
           chatBubble={messages.useCustomBubble && customBubble}
           maxHeight={250}
@@ -228,53 +187,9 @@ export const ChatList = () => {
               justifyContent: "space-around",
               padding: "2rem",
             }}
-          >
-            {/* <button
-         style={{
-           ...styles.button,
-           ...(currentUsers.includes(context.currentUser) === 2
-             ? styles.selected
-             : {}),
-         }}
-         onClick={() => onPress(2)}
-       >
-         Evan
-       </button> */}
-          </div>
+          ></div>
         </Card>
       </Paper>
-
-      {/* )} */}
-      {/* <h2 className="text-center">And we have Bubble Groups!</h2>
-   <BubbleGroup
-     messages={[
-       new Message({ id: 1, message: "Hey!" }),
-       new Message({ id: 1, message: "I forgot to mention..." }),
-       new Message({
-         id: 1,
-         message:
-           "Oh no, I forgot... I think I was going to say I'm a BubbleGroup",
-       }),
-     ]}
-     id={1}
-     showSenderName={true}
-     senderName={"Elon Musk"}
-   />
-   <ChatBubble
-     message={new Message({ id: 2, message: "I 'm a single ChatBubble!" })}
-   />
-   <BubbleGroup
-     messages={[
-       new Message({ id: 0, message: "How could you forget already?!" }),
-       new Message({
-         id: 0,
-         message: "Oh well. I'm a BubbleGroup as well",
-       }),
-     ]}
-     id={1}
-     showSenderName={true}
-     senderName={"Elon Musk"}
-   /> */}
     </div>
   ) : (
     <div>
@@ -292,50 +207,3 @@ export const ChatList = () => {
     </div>
   );
 };
-
-// export const ChatList = () => {
-//   const [messages, setMessages] = useState([
-//     {
-//       id: 1,
-//       room: 1,
-//       message: "message",
-//     },
-//     {
-//       id: 2,
-//       room: 1,
-//       message: "message2",
-//     },
-//     {
-//       id: 3,
-//       room: 2,
-//       senderName: "user",
-//       message: "message3",
-//     },
-//   ]);
-//   const [room, setRoom] = useState(0);
-
-//   const onMessageSubmit = (e) => {
-//     const input = message;
-//     e.preventDefault();
-//     if (!input.value) {
-//       return false;
-//     }
-//     this.pushMessage(messages.curr_user, input.value);
-//     input.value = "";
-//     return true;
-//   };
-
-//   return
-// };
-
-// (
-//     <Grid container justify={"center"}>
-//       <Button onClick={() => setRoom(1)}>Enter Room 1</Button>
-//       <Button onClick={() => setRoom(2)}>Enter Room 2</Button>
-//       <Grid container item xs={12} xl={3} direction="column">
-//         {messages.map((message) => (
-//           <MyBubble message={message} />
-//         ))}
-//       </Grid>
-//     </Grid>
-//   );

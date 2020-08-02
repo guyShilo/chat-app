@@ -1,3 +1,9 @@
+/*
+&&&&& Not in use
+
+
+*/
+
 const users = [];
 
 // Join user to chat

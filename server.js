@@ -6,10 +6,6 @@ const cors = require("cors");
 const app = express();
 require("dotenv").config();
 app.use(cors());
-// Handles any requests that don't match the ones above
-
-// run when clients connect
-// socket
 
 app.use("/", mainRoute);
 app.use("/", messagesRoute);

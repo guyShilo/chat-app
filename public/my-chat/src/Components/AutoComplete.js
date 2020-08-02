@@ -58,13 +58,7 @@ const Autocomplete = ({ suggestions, handleClose }) => {
 
   // Event fired when the user presses a key down
   const onKeyDown = (e) => {
-    // User pressed the enter key, update the input and close the
-    // suggestions
-    // console.log(
-    //   filteredSuggestions[activeSuggestion.name],
-    //   activeSuggestion,
-    //   filteredSuggestions
-    // );
+    // User pressed the enter key, update the input and close the window
     if (e.keyCode === 13) {
       context.setCurrentRoom(filteredSuggestions[activeSuggestion].name);
       // context.handleRoomChange(e);
@@ -100,13 +94,6 @@ const Autocomplete = ({ suggestions, handleClose }) => {
       suggestionsListComponent = (
         <List className="suggestions text-center">
           {filteredSuggestions.map((suggestion, index) => {
-            let className;
-
-            // Flag the active suggestion with a class
-            if (index === activeSuggestion) {
-              className = "suggestions-active";
-            }
-
             return (
               <ListItem
                 className={className}
