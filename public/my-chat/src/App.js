@@ -1,5 +1,4 @@
 import React from "react";
-import logo from "./logo.svg";
 import "./App.css";
 import { ChatList } from "./Components/ChatList";
 import { Login } from "./Components/Login";

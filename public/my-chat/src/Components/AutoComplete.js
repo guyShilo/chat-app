@@ -1,7 +1,6 @@
-import React, { Component, Fragment, useState, useContext } from "react";
-import PropTypes from "prop-types";
+import React, { useState, useContext } from "react";
 import { ChatAppContext } from "../AppContext";
-import { Input, ListItem, List } from "@material-ui/core";
+import { ListItem, List } from "@material-ui/core";
 import { inputStyle } from "./styles";
 
 const Autocomplete = ({ suggestions, handleClose }) => {

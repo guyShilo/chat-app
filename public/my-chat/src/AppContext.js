@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 
 export const ChatAppContext = React.createContext();
 
@@ -21,7 +21,6 @@ const AppProvider = ({ children }) => {
   };
 
   const handleAutoComplete = async () => {
-    let obj = {};
     const countries = [];
     // "https://gist.githubusercontent.com/keeguon/2310008/raw/865a58f59b9db2157413e7d3d949914dbf5a237d/countries.json"
 

@@ -1,23 +1,14 @@
 import React, { useState, useContext, useCallback, useEffect } from "react";
 import axios from "axios";
 import { ChatFeed, Card } from "react-chat-ui";
-import { Grid, Button, Paper, Typography, Input } from "@material-ui/core";
+import { Grid, Button, Paper, Typography } from "@material-ui/core";
 
 import { ChatAppContext } from "../AppContext";
 import { useHistory } from "react-router";
 import { inputStyle } from "./styles";
 
-// const customBubble = (props) => (
-//   <div>
-//     <p>{`${props.message.senderName} ${props.message.id ? "says" : "said"}: ${
-//       props.message.message
-//     }`}</p>
-//   </div>
-// );
-
 export const ChatList = () => {
   const context = useContext(ChatAppContext);
-  const currentUsers = context.currentUsers;
   const history = useHistory();
 
   const [loading, setLoading] = useState(false);
@@ -71,7 +62,7 @@ export const ChatList = () => {
       `${context.url}data?id=${id}&message=${message}&senderName=${senderName}&room=${room}`
     );
     const response = await request;
-    // setMessages([...messages, ...response.data]);
+    console.log(response);
     await getDataCallBack();
   };
 

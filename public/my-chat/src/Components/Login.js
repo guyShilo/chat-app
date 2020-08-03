@@ -1,16 +1,12 @@
 import React, { useContext } from "react";
-import { Paper, TextField, Typography } from "@material-ui/core";
-import { createStyles, makeStyles, Theme } from "@material-ui/core/styles";
+import { Typography } from "@material-ui/core";
+import { createStyles, makeStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import InputLabel from "@material-ui/core/InputLabel";
-import Input from "@material-ui/core/Input";
-import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
-import Select from "@material-ui/core/Select";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { ChatAppContext } from "../AppContext";
@@ -35,8 +31,6 @@ export const Login = () => {
   const classes = useStyles();
 
   const [open, setOpen] = React.useState(false);
-
-  const [room, setRoom] = React.useState("");
 
   const [user, setUser] = React.useState("");
 
@@ -78,7 +72,7 @@ export const Login = () => {
 
   return (
     <div>
-      <img className="w-25 m-3 p-3" src={login} />
+      <img className="w-25 m-3 p-3" src={login} alt="login" />
       <Typography variant="h3" className="text-light">
         Welcome.
       </Typography>
