@@ -36,6 +36,7 @@ router.get("/data", function (req, res, next) {
   let filteredMessages = messages.filter(
     (message) => message.room == req.query.room
   );
+
   // get all user names and remove duplicates
   const removeDuplicates = new Set([
     ...filteredMessages.map((message) => message.senderName),
@@ -47,9 +48,9 @@ router.get("/data", function (req, res, next) {
     userNames.reduce((prev, current) => {
       if (message.senderName === prev.senderName) {
         message.id = !message.id;
-        if (message.id === 0) {
-          return `${message.senderName} says ${message.message}`;
-        }
+        // if (message.id === 0) {
+        //   return `${message.senderName} says ${message.message}`;
+        // }
       }
     })
   );

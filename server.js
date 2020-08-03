@@ -9,6 +9,7 @@ app.use(cors());
 
 app.use("/", mainRoute);
 app.use("/", messagesRoute);
+
 app.use(express.static(path.join(__dirname, "public/my-chat/build")));
 
 app.get("*", (req, res) => {

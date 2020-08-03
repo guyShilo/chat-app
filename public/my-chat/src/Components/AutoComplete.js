@@ -17,12 +17,14 @@ const Autocomplete = ({ suggestions, handleClose }) => {
     // What the user has entered
     userInput: "",
   });
+
   const {
     activeSuggestion,
     filteredSuggestions,
     showSuggestions,
     userInput,
   } = autoCompleteState;
+
   // Event fired when the input value is changed
   const onChange = (e) => {
     const userInput = e.currentTarget.value;
@@ -96,7 +98,7 @@ const Autocomplete = ({ suggestions, handleClose }) => {
           {filteredSuggestions.map((suggestion, index) => {
             return (
               <ListItem
-                className={className}
+                // className={className}
                 key={suggestion.name}
                 onClick={onClick}
               >

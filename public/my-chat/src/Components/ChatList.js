@@ -1,64 +1,19 @@
 import React, { useState, useContext, useCallback, useEffect } from "react";
 import axios from "axios";
-import {
-  ChatFeed,
-  Message,
-  ChatBubbleProps,
-  ChatBubble,
-  BubbleGroup,
-} from "react-chat-ui";
-import { MyBubble } from "./MyBubble";
-
-import {
-  Grid,
-  Button,
-  Paper,
-  Typography,
-  Fade,
-  Card,
-  Input,
-} from "@material-ui/core";
+import { ChatFeed, Card } from "react-chat-ui";
+import { Grid, Button, Paper, Typography, Input } from "@material-ui/core";
 
 import { ChatAppContext } from "../AppContext";
 import { useHistory } from "react-router";
-import Autocomplete from "./AutoComplete";
 import { inputStyle } from "./styles";
 
-const styles = {
-  button: {
-    backgroundColor: "#fff",
-    borderColor: "#1D2129",
-    borderStyle: "solid",
-    borderRadius: 20,
-    borderWidth: 2,
-    color: "#1D2129",
-    fontSize: 18,
-    fontWeight: "300",
-    paddingTop: 8,
-    paddingBottom: 8,
-    paddingLeft: 16,
-    paddingRight: 16,
-  },
-  selected: {
-    color: "#fff",
-    backgroundColor: "#0084FF",
-    borderColor: "#0084FF",
-  },
-};
-
-const users = {
-  0: "You",
-  1: "Mark",
-  2: "Evan",
-};
-
-const customBubble = (props) => (
-  <div>
-    <p>{`${props.message.senderName} ${props.message.id ? "says" : "said"}: ${
-      props.message.message
-    }`}</p>
-  </div>
-);
+// const customBubble = (props) => (
+//   <div>
+//     <p>{`${props.message.senderName} ${props.message.id ? "says" : "said"}: ${
+//       props.message.message
+//     }`}</p>
+//   </div>
+// );
 
 export const ChatList = () => {
   const context = useContext(ChatAppContext);
@@ -80,15 +35,18 @@ export const ChatList = () => {
   ];
 
   let message;
+
   const filteredTry = messages.filter((msg) =>
     msg.senderName === context.currentUser ? (msg.id = 0) : (msg.id = 1)
   );
+
   const onMessageSubmit = (e) => {
     const input = message;
     e.preventDefault();
     if (!input.value) {
       return false;
     }
+
     pushMessage(0 || 1, input.value);
     input.value = "";
     return true;
@@ -160,7 +118,7 @@ export const ChatList = () => {
         }}
       >
         <ChatFeed
-          chatBubble={messages.useCustomBubble && customBubble}
+          // chatBubble={messages.useCustomBubble && customBubble}
           maxHeight={250}
           messages={helloMessage.concat(
             messages.filter((msg) =>
